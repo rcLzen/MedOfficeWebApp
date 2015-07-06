@@ -16,8 +16,8 @@ namespace MedOfficeWebApplication
     {
         public Insurance()
         {
-            this.ArAps = new HashSet<ArAp>();
             this.Patients = new HashSet<Patient>();
+            this.ArAps = new HashSet<ArAp>();
         }
     
         public int InsuranceID { get; set; }
@@ -25,7 +25,7 @@ namespace MedOfficeWebApplication
         public string InsuranceType { get; set; }
         public string InsuranceWebSite { get; set; }
     
-        public virtual ICollection<ArAp> ArAps { get; set; }
         public virtual ICollection<Patient> Patients { get; set; }
+        public virtual ICollection<ArAp> ArAps { get; set; }
     }
 }

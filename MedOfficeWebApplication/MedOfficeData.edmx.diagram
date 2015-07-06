@@ -5,25 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="355c4766442c4304b878b5b5c7e450d7" Name="Diagram1">
-        <EntityTypeShape EntityType="medofficeDBModel.ArAp" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="medofficeDBModel.Branch" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="medofficeDBModel.Branch" Width="1.5" PointX="1.125" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="medofficeDBModel.Company" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="medofficeDBModel.Employee" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="medofficeDBModel.EmployeeType" Width="1.5" PointX="3.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="medofficeDBModel.ExpenseType" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="medofficeDBModel.Insurance" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="medofficeDBModel.Patient" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
-        <AssociationConnector Association="medofficeDBModel.FK__ArAp__ChartNumbe__48CFD27E" ManuallyRouted="false" />
-        <AssociationConnector Association="medofficeDBModel.FK__ArAp__Payee__52593CB8" ManuallyRouted="false" />
-        <AssociationConnector Association="medofficeDBModel.FK__ArAp__Payer__5070F446" ManuallyRouted="false" />
-        <AssociationConnector Association="medofficeDBModel.FK__ArAp__Payer__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="medofficeDBModel.FK__Employee__Branch__25869641" ManuallyRouted="false" />
         <AssociationConnector Association="medofficeDBModel.FK__Company__Expense__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="medofficeDBModel.FK__Employee__Employ__267ABA7A" ManuallyRouted="false" />
         <AssociationConnector Association="medofficeDBModel.FK__Patient__Employe__29572725" ManuallyRouted="false" />
         <AssociationConnector Association="medofficeDBModel.FK__Patient__Insuran__2C3393D0" ManuallyRouted="false" />
-        <AssociationConnector Association="medofficeDBModel.FK__ArAp__Payee__534D60F1" />
-      </Diagram>
+        <EntityTypeShape EntityType="medofficeDBModel.PmtType" Width="1.5" PointX="0.5" PointY="1.75" />
+        <EntityTypeShape EntityType="medofficeDBModel.ArAp" Width="1.5" PointX="3.5" PointY="4.125" />
+        <AssociationConnector Association="medofficeDBModel.FK__ArAp__ChartNumbe__5AEE82B9" />
+        <AssociationConnector Association="medofficeDBModel.FK__ArAp__Payee__5DCAEF64" />
+        <AssociationConnector Association="medofficeDBModel.FK__ArAp__Payee__5EBF139D" />
+        <AssociationConnector Association="medofficeDBModel.FK__ArAp__Payer__5BE2A6F2" />
+        <AssociationConnector Association="medofficeDBModel.FK__ArAp__Payer__5CD6CB2B" />
+        <AssociationConnector Association="medofficeDBModel.FK__ArAp__PmtType__5FB337D6" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

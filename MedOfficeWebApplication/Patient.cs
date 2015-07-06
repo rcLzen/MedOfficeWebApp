@@ -27,8 +27,8 @@ namespace MedOfficeWebApplication
         public string Gender { get; set; }
         public System.DateTime BirthDate { get; set; }
     
-        public virtual ICollection<ArAp> ArAps { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Insurance Insurance { get; set; }
+        public virtual ICollection<ArAp> ArAps { get; set; }
     }
 }

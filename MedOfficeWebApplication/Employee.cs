@@ -16,8 +16,8 @@ namespace MedOfficeWebApplication
     {
         public Employee()
         {
-            this.ArAps = new HashSet<ArAp>();
             this.Patients = new HashSet<Patient>();
+            this.ArAps = new HashSet<ArAp>();
         }
     
         public int EmployeeId { get; set; }
@@ -26,9 +26,9 @@ namespace MedOfficeWebApplication
         public string FirstName { get; set; }
         public string LastName { get; set; }
     
-        public virtual ICollection<ArAp> ArAps { get; set; }
         public virtual Branch Branch { get; set; }
         public virtual EmployeeType EmployeeType { get; set; }
         public virtual ICollection<Patient> Patients { get; set; }
+        public virtual ICollection<ArAp> ArAps { get; set; }
     }
 }

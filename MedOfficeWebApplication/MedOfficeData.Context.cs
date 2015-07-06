@@ -25,7 +25,6 @@ namespace MedOfficeWebApplication
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ArAp> ArAps { get; set; }
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
@@ -33,5 +32,7 @@ namespace MedOfficeWebApplication
         public virtual DbSet<ExpenseType> ExpenseTypes { get; set; }
         public virtual DbSet<Insurance> Insurances { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<PmtType> PmtTypes { get; set; }
+        public virtual DbSet<ArAp> ArAps { get; set; }
     }
 }

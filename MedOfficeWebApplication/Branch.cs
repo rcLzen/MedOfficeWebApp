@@ -16,8 +16,8 @@ namespace MedOfficeWebApplication
     {
         public Branch()
         {
-            this.ArAps = new HashSet<ArAp>();
             this.Employees = new HashSet<Employee>();
+            this.ArAps = new HashSet<ArAp>();
         }
     
         public int BranchId { get; set; }
@@ -28,7 +28,7 @@ namespace MedOfficeWebApplication
         public string StateProvince { get; set; }
         public string ZipCode { get; set; }
     
-        public virtual ICollection<ArAp> ArAps { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<ArAp> ArAps { get; set; }
     }
 }

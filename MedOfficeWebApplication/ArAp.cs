@@ -16,7 +16,7 @@ namespace MedOfficeWebApplication
     {
         public int InvoiceNumber { get; set; }
         public Nullable<int> CheckNumber { get; set; }
-        public string PmtType { get; set; }
+        public Nullable<int> PmtType { get; set; }
         public System.DateTime DoP { get; set; }
         public System.DateTime DoS { get; set; }
         public int Payer { get; set; }
@@ -26,8 +26,9 @@ namespace MedOfficeWebApplication
     
         public virtual Patient Patient { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual Company Company { get; set; }
         public virtual Insurance Insurance { get; set; }
         public virtual Branch Branch { get; set; }
-        public virtual Company Company { get; set; }
+        public virtual PmtType PmtType1 { get; set; }
     }
 }
