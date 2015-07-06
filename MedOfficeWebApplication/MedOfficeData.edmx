@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="medofficeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ArAp">
+          <Key>
+            <PropertyRef Name="InvoiceNumber" />
+          </Key>
+          <Property Name="InvoiceNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CheckNumber" Type="int" />
+          <Property Name="PmtType" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DoP" Type="date" Nullable="false" />
+          <Property Name="DoS" Type="date" Nullable="false" />
+          <Property Name="Payer" Type="int" Nullable="false" />
+          <Property Name="Payee" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="ChartNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StateProvince" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="ExpenseTypeId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StateProvince" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeTypeId" Type="int" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeTypes">
+          <Key>
+            <PropertyRef Name="EmployeeTypeId" />
+          </Key>
+          <Property Name="EmployeeTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExpenseType">
+          <Key>
+            <PropertyRef Name="ExpenseTypeID" />
+          </Key>
+          <Property Name="ExpenseTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Insurances">
+          <Key>
+            <PropertyRef Name="InsuranceID" />
+          </Key>
+          <Property Name="InsuranceID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="InsuranceType" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="InsuranceWebSite" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="ChartNumber" />
+          </Key>
+          <Property Name="ChartNumber" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="InsuranceID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ArAp__ChartNumbe__48CFD27E">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+          <End Role="ArAp" Type="Self.ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="ChartNumber" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="ChartNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArAp__Payee__52593CB8">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="ArAp" Type="Self.ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="Payee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArAp__Payee__534D60F1">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="ArAp" Type="Self.ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="Payee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArAp__Payer__5070F446">
+          <End Role="Insurances" Type="Self.Insurances" Multiplicity="1" />
+          <End Role="ArAp" Type="Self.ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insurances">
+              <PropertyRef Name="InsuranceID" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="Payer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArAp__Payer__5165187F">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+          <End Role="ArAp" Type="Self.ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="Payer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Company__Expense__4E88ABD4">
+          <End Role="ExpenseType" Type="Self.ExpenseType" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpenseType">
+              <PropertyRef Name="ExpenseTypeID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="ExpenseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__Branch__25869641">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__Employ__267ABA7A">
+          <End Role="EmployeeTypes" Type="Self.EmployeeTypes" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeTypes">
+              <PropertyRef Name="EmployeeTypeId" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="EmployeeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Patient__Employe__29572725">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Patient__Insuran__2C3393D0">
+          <End Role="Insurances" Type="Self.Insurances" Multiplicity="1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insurances">
+              <PropertyRef Name="InsuranceID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="InsuranceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="medofficeDBModelStoreContainer">
+          <EntitySet Name="ArAp" EntityType="Self.ArAp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeTypes" EntityType="Self.EmployeeTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExpenseType" EntityType="Self.ExpenseType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Insurances" EntityType="Self.Insurances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ArAp__ChartNumbe__48CFD27E" Association="Self.FK__ArAp__ChartNumbe__48CFD27E">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="ArAp" EntitySet="ArAp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArAp__Payee__52593CB8" Association="Self.FK__ArAp__Payee__52593CB8">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="ArAp" EntitySet="ArAp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArAp__Payee__534D60F1" Association="Self.FK__ArAp__Payee__534D60F1">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="ArAp" EntitySet="ArAp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArAp__Payer__5070F446" Association="Self.FK__ArAp__Payer__5070F446">
+            <End Role="Insurances" EntitySet="Insurances" />
+            <End Role="ArAp" EntitySet="ArAp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArAp__Payer__5165187F" Association="Self.FK__ArAp__Payer__5165187F">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="ArAp" EntitySet="ArAp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Company__Expense__4E88ABD4" Association="Self.FK__Company__Expense__4E88ABD4">
+            <End Role="ExpenseType" EntitySet="ExpenseType" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__Branch__25869641" Association="Self.FK__Employee__Branch__25869641">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__Employ__267ABA7A" Association="Self.FK__Employee__Employ__267ABA7A">
+            <End Role="EmployeeTypes" EntitySet="EmployeeTypes" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Patient__Employe__29572725" Association="Self.FK__Patient__Employe__29572725">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Patient__Insuran__2C3393D0" Association="Self.FK__Patient__Insuran__2C3393D0">
+            <End Role="Insurances" EntitySet="Insurances" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="medofficeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ArAp">
+          <Key>
+            <PropertyRef Name="InvoiceNumber" />
+          </Key>
+          <Property Name="InvoiceNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CheckNumber" Type="Int32" />
+          <Property Name="PmtType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DoP" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DoS" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Payer" Type="Int32" Nullable="false" />
+          <Property Name="Payee" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="ChartNumber" Type="Int32" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__ArAp__ChartNumbe__48CFD27E" FromRole="ArAp" ToRole="Patients" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__ArAp__Payee__52593CB8" FromRole="ArAp" ToRole="Employees" />
+          <NavigationProperty Name="Insurance" Relationship="Self.FK__ArAp__Payer__5070F446" FromRole="ArAp" ToRole="Insurances" />
+          <NavigationProperty Name="Branch" Relationship="Self.FK__ArAp__Payer__5165187F" FromRole="ArAp" ToRole="Branches" />
+          <NavigationProperty Name="Company" Relationship="medofficeDBModel.FK__ArAp__Payee__534D60F1" FromRole="ArAp" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateProvince" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ArAps" Relationship="Self.FK__ArAp__Payer__5165187F" FromRole="Branches" ToRole="ArAp" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__Branch__25869641" FromRole="Branches" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="ExpenseTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateProvince" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ExpenseType" Relationship="Self.FK__Company__Expense__4E88ABD4" FromRole="Company" ToRole="ExpenseType" />
+          <NavigationProperty Name="ArAps" Relationship="medofficeDBModel.FK__ArAp__Payee__534D60F1" FromRole="Company" ToRole="ArAp" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ArAps" Relationship="Self.FK__ArAp__Payee__52593CB8" FromRole="Employees" ToRole="ArAp" />
+          <NavigationProperty Name="Branch" Relationship="Self.FK__Employee__Branch__25869641" FromRole="Employees" ToRole="Branches" />
+          <NavigationProperty Name="EmployeeType" Relationship="Self.FK__Employee__Employ__267ABA7A" FromRole="Employees" ToRole="EmployeeTypes" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK__Patient__Employe__29572725" FromRole="Employees" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="EmployeeType">
+          <Key>
+            <PropertyRef Name="EmployeeTypeId" />
+          </Key>
+          <Property Name="EmployeeTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__Employ__267ABA7A" FromRole="EmployeeTypes" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="ExpenseType">
+          <Key>
+            <PropertyRef Name="ExpenseTypeID" />
+          </Key>
+          <Property Name="ExpenseTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Companies" Relationship="Self.FK__Company__Expense__4E88ABD4" FromRole="ExpenseType" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="Insurance">
+          <Key>
+            <PropertyRef Name="InsuranceID" />
+          </Key>
+          <Property Name="InsuranceID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InsuranceType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InsuranceWebSite" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ArAps" Relationship="Self.FK__ArAp__Payer__5070F446" FromRole="Insurances" ToRole="ArAp" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK__Patient__Insuran__2C3393D0" FromRole="Insurances" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="ChartNumber" />
+          </Key>
+          <Property Name="ChartNumber" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="InsuranceID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ArAps" Relationship="Self.FK__ArAp__ChartNumbe__48CFD27E" FromRole="Patients" ToRole="ArAp" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Patient__Employe__29572725" FromRole="Patients" ToRole="Employees" />
+          <NavigationProperty Name="Insurance" Relationship="Self.FK__Patient__Insuran__2C3393D0" FromRole="Patients" ToRole="Insurances" />
+        </EntityType>
+        <Association Name="FK__ArAp__ChartNumbe__48CFD27E">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="ArAp" Type="Self.ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="ChartNumber" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="ChartNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArAp__Payee__52593CB8">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ArAp" Type="Self.ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="Payee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArAp__Payer__5070F446">
+          <End Role="Insurances" Type="Self.Insurance" Multiplicity="1" />
+          <End Role="ArAp" Type="Self.ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insurances">
+              <PropertyRef Name="InsuranceID" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="Payer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArAp__Payer__5165187F">
+          <End Role="Branches" Type="Self.Branch" Multiplicity="1" />
+          <End Role="ArAp" Type="Self.ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="Payer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__Branch__25869641">
+          <End Role="Branches" Type="Self.Branch" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Company__Expense__4E88ABD4">
+          <End Role="ExpenseType" Type="Self.ExpenseType" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpenseType">
+              <PropertyRef Name="ExpenseTypeID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="ExpenseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__Employ__267ABA7A">
+          <End Role="EmployeeTypes" Type="Self.EmployeeType" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeTypes">
+              <PropertyRef Name="EmployeeTypeId" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="EmployeeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Patient__Employe__29572725">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Patients" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Patient__Insuran__2C3393D0">
+          <End Role="Insurances" Type="Self.Insurance" Multiplicity="1" />
+          <End Role="Patients" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insurances">
+              <PropertyRef Name="InsuranceID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="InsuranceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="medofficeDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ArAps" EntityType="Self.ArAp" />
+          <EntitySet Name="Branches" EntityType="Self.Branch" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="EmployeeTypes" EntityType="Self.EmployeeType" />
+          <EntitySet Name="ExpenseTypes" EntityType="Self.ExpenseType" />
+          <EntitySet Name="Insurances" EntityType="Self.Insurance" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <AssociationSet Name="FK__ArAp__ChartNumbe__48CFD27E" Association="Self.FK__ArAp__ChartNumbe__48CFD27E">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="ArAp" EntitySet="ArAps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArAp__Payee__52593CB8" Association="Self.FK__ArAp__Payee__52593CB8">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="ArAp" EntitySet="ArAps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArAp__Payer__5070F446" Association="Self.FK__ArAp__Payer__5070F446">
+            <End Role="Insurances" EntitySet="Insurances" />
+            <End Role="ArAp" EntitySet="ArAps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArAp__Payer__5165187F" Association="Self.FK__ArAp__Payer__5165187F">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="ArAp" EntitySet="ArAps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__Branch__25869641" Association="Self.FK__Employee__Branch__25869641">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Company__Expense__4E88ABD4" Association="Self.FK__Company__Expense__4E88ABD4">
+            <End Role="ExpenseType" EntitySet="ExpenseTypes" />
+            <End Role="Company" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__Employ__267ABA7A" Association="Self.FK__Employee__Employ__267ABA7A">
+            <End Role="EmployeeTypes" EntitySet="EmployeeTypes" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Patient__Employe__29572725" Association="Self.FK__Patient__Employe__29572725">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Patient__Insuran__2C3393D0" Association="Self.FK__Patient__Insuran__2C3393D0">
+            <End Role="Insurances" EntitySet="Insurances" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArAp__Payee__534D60F1" Association="medofficeDBModel.FK__ArAp__Payee__534D60F1">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="ArAp" EntitySet="ArAps" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__ArAp__Payee__534D60F1">
+          <End Type="medofficeDBModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="medofficeDBModel.ArAp" Role="ArAp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="ArAp">
+              <PropertyRef Name="Payee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="medofficeDBModelStoreContainer" CdmEntityContainer="medofficeDBEntities">
+          <EntitySetMapping Name="ArAps">
+            <EntityTypeMapping TypeName="medofficeDBModel.ArAp">
+              <MappingFragment StoreEntitySet="ArAp">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="CheckNumber" ColumnName="CheckNumber" />
+                <ScalarProperty Name="PmtType" ColumnName="PmtType" />
+                <ScalarProperty Name="DoP" ColumnName="DoP" />
+                <ScalarProperty Name="DoS" ColumnName="DoS" />
+                <ScalarProperty Name="Payer" ColumnName="Payer" />
+                <ScalarProperty Name="Payee" ColumnName="Payee" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ChartNumber" ColumnName="ChartNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="medofficeDBModel.Branch">
+              <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="medofficeDBModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ExpenseTypeId" ColumnName="ExpenseTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="medofficeDBModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeTypes">
+            <EntityTypeMapping TypeName="medofficeDBModel.EmployeeType">
+              <MappingFragment StoreEntitySet="EmployeeTypes">
+                <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpenseTypes">
+            <EntityTypeMapping TypeName="medofficeDBModel.ExpenseType">
+              <MappingFragment StoreEntitySet="ExpenseType">
+                <ScalarProperty Name="ExpenseTypeID" ColumnName="ExpenseTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Insurances">
+            <EntityTypeMapping TypeName="medofficeDBModel.Insurance">
+              <MappingFragment StoreEntitySet="Insurances">
+                <ScalarProperty Name="InsuranceID" ColumnName="InsuranceID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="InsuranceType" ColumnName="InsuranceType" />
+                <ScalarProperty Name="InsuranceWebSite" ColumnName="InsuranceWebSite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="medofficeDBModel.Patient">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="ChartNumber" ColumnName="ChartNumber" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="InsuranceID" ColumnName="InsuranceID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
