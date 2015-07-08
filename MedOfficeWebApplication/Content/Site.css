@@ -31,3 +31,7 @@ textarea {
     min-height: 200px;
     width: 300px;
 }
+
+.sidebar {
+    margin-top: 20px;
+}

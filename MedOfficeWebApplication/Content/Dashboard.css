@@ -4,7 +4,7 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 
@@ -31,9 +31,9 @@ body {
 
 /* Hide for mobile, show later */
 .sidebar {
-  display: none;
+  display: inline;
 }
-@media (min-width: 768px) {
+@media (min-width: 200px) {
   .sidebar {
     position: fixed;
     top: 51px;

@@ -4,59 +4,60 @@
     ViewBag.Title = "Add New Branch";
 }
 
-<h2>Branches</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Address Line 1
+            </th>
+            <th>
+                Address Line 2
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                State
+            </th>
+            <th>
+                Zip Code
+            </th>
+            <th></th>
+        </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Address Line 1
-        </th>
-        <th>
-            Address Line 2
-        </th>
-        <th>
-            City
-        </th>
-        <th>
-           State
-        </th>
-        <th>
-           Zip Code
-        </th>
-        <th></th>
-    </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressLine1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressLine2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateProvince)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZipCode)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BranchId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.BranchId }) |
+                </td>
+            </tr>
+        }
+
+
     </table>
+</div>
 
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddressLine1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddressLine2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StateProvince)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BranchId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BranchId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BranchId })
-        </td>
-    </tr>
-}
-
-</table>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/Dashboard.css" rel="stylesheet">
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
     <title>@ViewBag.Title - MedOffice</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -14,48 +15,46 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("MedOffice", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-left">
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Branches<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Branches", "Index", "Branches")</li>
-                                <li>@Html.ActionLink("New Branch", "Create", "Branches")</li>
-                            </ul>
-                        </li>
-                    }
-                    else
-                    {
-
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
-
-            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>      
+                @Html.Partial("_LoginPartial") 
+               
+                </div>    
+             
         </div>
     </nav>
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - MedOffice by rcLzen</p>
-        </footer>
+    <div class="container-fluid">
+        <div class="row :before">
+            <div class="col-sm-2 col-md-1 sidebar">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>@Html.ActionLink("Branches", "Index", "Branches")</li>
+                    <li>@Html.ActionLink("New Branch", "Create", "Branches")</li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-2 col-md-6 col-md-offset-1 main">
+                @RenderBody()
+            </div>
+        </div>
     </div>
+  
+    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+  
 </body>
+
+
 </html>
